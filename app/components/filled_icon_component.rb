@@ -1,7 +1,7 @@
 class FilledIconComponent < ViewComponent::Base
   attr_reader :icon, :text, :hex_color, :size, :rounded, :variant
 
-  VARIANTS = %i[default text surface container inverse].freeze
+  VARIANTS = %i[default text surface container inverse success].freeze
 
   SIZES = {
     sm: {
@@ -61,11 +61,23 @@ class FilledIconComponent < ViewComponent::Base
     STYLE
   end
 
+  def icon_color
+    case variant
+    when :success
+      "#10b981" # Dawaris Green
+    when :inverse
+      "#1a365d" # Dawaris Navy
+    else
+      "current"
+    end
+  end
+
   def transparent?
     variant.in?(%i[default text])
   end
 
   private
+
     def solid_bg_class
       case variant
       when :surface
@@ -74,6 +86,8 @@ class FilledIconComponent < ViewComponent::Base
         "bg-container-inset"
       when :inverse
         "bg-container"
+      when :success
+        "bg-[#10b981]/10"
       end
     end
 
@@ -86,7 +100,18 @@ class FilledIconComponent < ViewComponent::Base
     end
 
     def custom_fg_color
-      hex_color || "var(--color-gray-500)"
+      hex_color || default_dawaris_color
+    end
+
+    def default_dawaris_color
+      case variant
+      when :success
+        "#10b981" # Dawaris Green
+      when :inverse
+        "#1a365d" # Dawaris Navy
+      else
+        "#1a365d" # Default to Navy
+      end
     end
 
     def transparent_bg_color
