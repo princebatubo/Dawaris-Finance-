@@ -1,4 +1,4 @@
-<%= link_to href, **merged_opts do %>
+<%= link_to href, class: class_names("btn", classes), **merged_opts.except(:class) do %>
   <% if icon && (icon_position != "right") %>
     <%= helpers.icon(icon, size: size, color: icon_color) %>
   <% end %>
