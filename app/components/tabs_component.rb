@@ -20,10 +20,10 @@ class TabsComponent < ViewComponent::Base
 
   VARIANTS = {
     default: {
-      active_btn_classes: "bg-white theme-dark:bg-gray-700 text-primary shadow-sm",
-      inactive_btn_classes: "text-secondary hover:bg-surface-inset-hover",
-      base_btn_classes: "w-full inline-flex justify-center items-center text-sm font-medium px-2 py-1 rounded-md transition-colors duration-200",
-      nav_container_classes: "flex bg-surface-inset p-1 rounded-lg mb-4"
+      active_btn_classes: "bg-white text-[#1a365d] font-semibold shadow-sm border border-[#1a365d]",
+      inactive_btn_classes: "text-gray-500 hover:bg-gray-100",
+      base_btn_classes: "w-full inline-flex justify-center items-center text-sm px-2 py-1 rounded-md transition-colors duration-200",
+      nav_container_classes: "flex bg-white p-1 rounded-lg mb-4"
     }
   }
 
@@ -48,19 +48,20 @@ class TabsComponent < ViewComponent::Base
   end
 
   private
-    def unstyled?
-      variant == :unstyled
-    end
 
-    def base_btn_classes
-      unless unstyled?
-        VARIANTS.dig(variant, :base_btn_classes)
-      end
-    end
+  def unstyled?
+    variant == :unstyled
+  end
 
-    def nav_container_classes
-      unless unstyled?
-        VARIANTS.dig(variant, :nav_container_classes)
-      end
+  def base_btn_classes
+    unless unstyled?
+      VARIANTS.dig(variant, :base_btn_classes)
     end
+  end
+
+  def nav_container_classes
+    unless unstyled?
+      VARIANTS.dig(variant, :nav_container_classes)
+    end
+  end
 end
