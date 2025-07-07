@@ -1,27 +1,27 @@
 <details class="group" <%= "open" if open %>>
   <%= tag.summary class: class_names(
-    "px-3 py-2 rounded-xl cursor-pointer flex items-center justify-between bg-surface"
+    "px-4 py-2 rounded-lg cursor-pointer flex items-center justify-between bg-neutral hover:bg-container-hover transition-colors"
   ) do %>
     <% if summary_content? %>
       <%= summary_content %>
     <% else %>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
         <% if align == :left %>
-          <%= helpers.icon "chevron-right", class: "group-open:transform group-open:rotate-90" %>
+          <%= helpers.icon "chevron-right", class: "transition-transform group-open:rotate-90" %>
         <% end %>
 
-        <%= tag.span class: class_names("font-medium", align == :left ? "text-sm text-primary" : "text-xs uppercase text-secondary") do %>
+        <%= tag.span class: class_names("font-medium", align == :left ? "text-sm text-primary" : "text-xs uppercase text-muted") do %>
           <%= title %>
         <% end %>
       </div>
 
       <% if align == :right %>
-        <%= helpers.icon "chevron-down", class: "group-open:transform group-open:rotate-180" %>
+        <%= helpers.icon "chevron-down", class: "transition-transform group-open:rotate-180" %>
       <% end %>
     <% end %>
   <% end %>
 
-  <div class="mt-2">
+  <div class="mt-3 text-sm text-primary">
     <%= content %>
   </div>
 </details>
