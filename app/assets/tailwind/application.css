@@ -173,3 +173,32 @@
     background: #a6a6a6;
   }
 }
+  @layer utilities {
+  .text-primary {
+    @apply text-[#1a365d];
+  }
+
+  .bg-accent {
+    @apply bg-[#10b981];
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-md font-semibold text-white bg-[#10b981] hover:bg-[#0e9f74];
+  }
+
+  .bg-neutral {
+    @apply bg-white;
+  }
+
+  .text-muted {
+    @apply text-gray-500;
+  }
+
+  .border-brand {
+    @apply border-[#1a365d];
+  }
+
+  .hover-accent {
+    @apply hover:bg-[#0e9f74];
+  }
+    }
