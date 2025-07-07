@@ -2,9 +2,9 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.3"
 	},
-	"name": "maybe",
+	"name": "dawaris-finance",
 	"version": "1.0.0",
-	"description": "The OS for your personal finances",
+	"description": "Dawaris Finance — The OS for modern personal & business wealth management by Dawaris Technologies.",
 	"scripts": {
 		"style:check": "biome check",
 		"style:fix": "biome check --write",
@@ -13,6 +13,6 @@
 		"format:check": "biome format",
 		"format": "biome format --write"
 	},
-	"author": "",
+	"author": "Dawaris Technologies",
 	"license": "ISC"
 }
