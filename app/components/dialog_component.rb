@@ -7,8 +7,7 @@ class DialogComponent < ViewComponent::Base
         safe_join([ title, close_icon ].compact)
       end
 
-      subtitle = content_tag(:p, subtitle, class: "text-sm text-secondary") if subtitle
-
+      subtitle = content_tag(:p, subtitle, class: "text-sm text-muted") if subtitle
       block_content = capture(&block) if block
 
       safe_join([ title_div, subtitle, block_content ].compact)
@@ -57,7 +56,6 @@ class DialogComponent < ViewComponent::Base
     @frame || variant
   end
 
-  # Caller must "opt-out" of using the default turbo-frame based on the variant
   def wrapper_element(&block)
     if disable_frame
       content_tag(:div, &block)
@@ -67,46 +65,33 @@ class DialogComponent < ViewComponent::Base
   end
 
   def dialog_outer_classes
-    variant_classes = if drawer?
-      "items-end justify-end"
-    else
-      "items-center justify-center"
-    end
-
     class_names(
       "flex h-full w-full",
-      variant_classes
+      drawer? ? "items-end justify-end" : "items-center justify-center"
     )
   end
 
   def dialog_inner_classes
-    variant_classes = if drawer?
-      "lg:w-[550px] h-full"
-    else
-      class_names(
-        "max-h-full",
-        WIDTHS[width]
-      )
-    end
+    variant_classes = drawer? ? "lg:w-[550px] h-full" : class_names("max-h-full", WIDTHS[width])
 
     class_names(
-      "flex flex-col bg-container rounded-xl shadow-border-xs mx-3 lg:mx-0 w-full overflow-hidden",
+      "flex flex-col bg-neutral rounded-xl shadow-border-xs mx-3 lg:mx-0 w-full overflow-hidden",
       variant_classes
     )
   end
 
   def merged_opts
-    merged_opts = opts.dup
-    data = merged_opts.delete(:data) || {}
+    merged = opts.dup
+    data = merged.delete(:data) || {}
 
     data[:controller] = [ "dialog", "hotkey", data[:controller] ].compact.join(" ")
     data[:dialog_auto_open_value] = auto_open
     data[:dialog_reload_on_close_value] = reload_on_close
     data[:action] = [ "mousedown->dialog#clickOutside", data[:action] ].compact.join(" ")
     data[:hotkey] = "esc:dialog#close"
-    merged_opts[:data] = data
+    merged[:data] = data
 
-    merged_opts
+    merged
   end
 
   def drawer?
