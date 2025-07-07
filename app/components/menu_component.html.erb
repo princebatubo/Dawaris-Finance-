@@ -2,7 +2,7 @@
   <% if variant == :icon %>
     <%= render ButtonComponent.new(variant: "icon", icon: icon_vertical ? "more-vertical" : "more-horizontal", data: { menu_target: "button" }) %>
   <% elsif variant == :button %>
-    <%= button %>
+    <%= content_tag(:div, class: "btn") { button } %>
   <% elsif variant == :avatar %>
     <button data-menu-target="button">
       <div class="w-9 h-9 cursor-pointer">
