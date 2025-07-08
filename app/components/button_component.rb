@@ -1,41 +1,48 @@
 # frozen_string_literal: true
 
-# An extension to `button_to` helper.  All options are passed through to the `button_to` helper with some additional
-# options available.
-class ButtonComponent < ButtonishComponent
-  attr_reader :confirm
-
-  def initialize(confirm: nil, **opts)
-    super(**opts)
-    @confirm = confirm
+class ButtonComponent < ViewComponent::Base
+  def initialize(
+    text:,
+    variant: "primary",
+    size: "md",
+    icon: nil,
+    type: "submit",
+    full_width: false,
+    onclick: nil,
+    **options
+  )
+    @text = text
+    @variant = variant
+    @size = size
+    @icon = icon
+    @type = type
+    @full_width = full_width
+    @onclick = onclick
+    @options = options
   end
 
-  def container(&block)
-    if href.present?
-      button_to(href, **merged_opts, &block)
-    else
-      content_tag(:button, **merged_opts, &block)
+  def call
+    content_tag :button, **button_options do
+      safe_join([icon_tag, text].compact, " ")
     end
   end
 
   private
-    def merged_opts
-      merged_opts = opts.dup || {}
-      extra_classes = merged_opts.delete(:class)
-      href = merged_opts.delete(:href)
-      data = merged_opts.delete(:data) || {}
 
-      if confirm.present?
-        data = data.merge(turbo_confirm: confirm.to_data_attribute)
-      end
+  attr_reader :text, :variant, :size, :icon, :type, :full_width, :onclick, :options
 
-      if frame.present?
-        data = data.merge(turbo_frame: frame)
-      end
+  def button_options
+    classes = ["btn", "btn-#{variant}", "btn-#{size}"]
+    classes << "w-full" if full_width
+    opts = options.dup
+    opts[:class] = [*opts[:class], *classes].compact.join(" ")
+    opts[:type] = type
+    opts[:onclick] = onclick if onclick.present?
+    opts
+  end
 
-      merged_opts.merge(
-        class: class_names(container_classes, extra_classes),
-        data: data
-      )
-    end
+  def icon_tag
+    return nil unless icon.present?
+    icon(icon, class: "w-4 h-4")
+  end
 end
