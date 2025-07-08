@@ -1,12 +1,11 @@
-# app/components/link_component.rb
 class LinkComponent < ViewComponent::Base
   def initialize(
-    href:, text: nil, classes: nil, target: nil, method: nil, rel: nil,
+    href:, text: nil, class: nil, target: nil, method: nil, rel: nil,
     icon: nil, variant: "primary", size: "base", full_width: false, **options
   )
     @href = href
     @text = text
-    @classes = classes
+    @class = class
     @target = target
     @method = method
     @rel = rel
@@ -44,7 +43,7 @@ class LinkComponent < ViewComponent::Base
       variant_class,
       size_class,
       ("w-full" if full_width),
-      classes
+      @class
     ].compact.join(" ")
   end
 
@@ -80,4 +79,4 @@ class LinkComponent < ViewComponent::Base
       data: { icon: icon }
     )
   end
-end
+  end
