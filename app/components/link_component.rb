@@ -19,7 +19,7 @@ class LinkComponent < ButtonishComponent
     end
 
     merged_opts.merge(
-      class: class_names(container_classes, extra_classes),
+      class: class_names(container_classes, classes),
       data: data
     )
   end
