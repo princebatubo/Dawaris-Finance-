@@ -1,31 +1,27 @@
-# An extension to `link_to` helper.  All options are passed through to the `link_to` helper with some additional
-# options available.
-class LinkComponent < ButtonishComponent
-  attr_reader :frame
-
-  VARIANTS = VARIANTS.reverse_merge(
-    default: {
-      container_classes: "",
-      icon_classes: "fg-gray"
-    }
-  ).freeze
-
-  def merged_opts
-    merged_opts = opts.dup || {}
-    data = merged_opts.delete(:data) || {}
-
-    if frame
-      data = data.merge(turbo_frame: frame)
-    end
-
-    merged_opts.merge(
-      class: class_names(container_classes, classes),
-      data: data
-    )
+# app/components/link_component.rb
+class LinkComponent < ViewComponent::Base
+  def initialize(href:, text: nil, classes: nil, target: nil, method: nil, **options)
+    @href = href
+    @text = text
+    @classes = classes
+    @target = target
+    @method = method
+    @options = options
   end
 
   private
-    def container_size_classes
-      super unless variant == :default
-    end
+
+  attr_reader :href, :text, :target, :method, :options
+
+  def classes
+    @classes || ""
+  end
+
+  def link_options
+    opts = @options.dup
+    opts[:class] = classes if classes.present?
+    opts[:target] = target if target.present?
+    opts[:method] = method if method.present?
+    opts
+  end
 end
