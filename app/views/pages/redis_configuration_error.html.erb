@@ -1,15 +1,20 @@
-<% content_for :title, "Redis Configuration Required - Maybe" %>
+<% content_for :title, "Redis Configuration Required - Dawaris Finance" %>
 
 <div class="flex items-center justify-center h-full p-4 sm:p-6 lg:p-8">
   <div class="w-full max-w-md sm:max-w-lg lg:max-w-2xl">
     <div class="bg-container border border-primary rounded-xl p-6 sm:p-8 shadow-sm">
+      
       <!-- Icon and Header -->
       <div class="text-center mb-8">
         <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
           <%= icon "alert-triangle", class: "w-8 h-8 text-red-600" %>
         </div>
-        <h1 class="text-xl sm:text-2xl font-bold text-primary mb-2">Redis Configuration Required</h1>
-        <p class="text-sm sm:text-base text-muted">Your self-hosted Maybe installation needs Redis to be properly configured.</p>
+        <h1 class="text-xl sm:text-2xl font-bold text-primary mb-2">
+          Redis Configuration Required
+        </h1>
+        <p class="text-sm sm:text-base text-muted">
+          Your self-hosted Dawaris Finance installation needs Redis to be properly configured.
+        </p>
       </div>
 
       <!-- Explanation -->
@@ -19,41 +24,41 @@
             <%= icon "info", class: "w-5 h-5 text-amber-600 mt-0.5 mr-3 flex-shrink-0" %>
             <div class="text-sm text-amber-800">
               <p><strong>Why is Redis required?</strong></p>
-              <p class="mt-1">Maybe uses Redis to power Sidekiq background jobs for tasks like syncing account data, processing imports, and other background operations that keep your financial data up to date.</p>
+              <p class="mt-1">
+                Dawaris Finance uses Redis to power background jobs like syncing accounts, processing imports, and other operations that keep your financial data fresh.
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Primary CTA -->
+        <!-- Primary CTA (link) -->
         <div class="text-center space-y-4">
           <%= render LinkComponent.new(
             text: "View Setup Guide",
             href: "https://github.com/maybe-finance/maybe/blob/main/docs/hosting/docker.md",
-            variant: "primary",
-            size: "lg",
-            icon: "external-link",
-            full_width: true,
+            classes: "inline-block w-full text-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark",
             target: "_blank",
             rel: "noopener noreferrer"
           ) %>
-          <p class="text-sm text-muted">Follow our complete Docker setup guide to configure Redis</p>
+          <p class="text-sm text-muted">
+            Follow the complete Docker setup guide to configure Redis
+          </p>
         </div>
       </div>
 
-      <!-- Secondary CTA -->
+      <!-- Secondary CTA (button) -->
       <div class="pt-6 border-t border-primary">
         <div class="text-center space-y-3">
           <p class="text-sm text-muted">Once you've configured Redis, refresh this page to continue.</p>
           <%= render ButtonComponent.new(
             text: "Refresh Page",
-            variant: "secondary",
-            icon: "refresh-cw",
+            classes: "w-full text-center bg-white border border-primary text-primary rounded-md px-4 py-2 hover:bg-gray-50",
             type: "button",
-            full_width: true,
-            onclick: "window.location.reload()"
+            data: { turbo_action: "reload" }
           ) %>
         </div>
       </div>
+      
     </div>
   </div>
 </div>
