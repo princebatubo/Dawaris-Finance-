@@ -9,6 +9,10 @@ class LinkComponent < ViewComponent::Base
     @options = options
   end
 
+  def call
+    link_to(text || href, href, **link_options)
+  end
+
   private
 
   attr_reader :href, :text, :target, :method, :options
